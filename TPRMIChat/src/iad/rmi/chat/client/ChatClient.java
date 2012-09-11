@@ -7,6 +7,13 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 
+/**
+ * @author jderegnaucourt
+ * Test Class
+ * Creates a client and a console client
+ * then launch the console client
+ */
+
 public class ChatClient {
 
 	/**
