@@ -28,29 +28,35 @@ public class ChatClientConsole extends Thread {
 	       try {
 				printNextMessage();	
 			    line = reader.readLine();
-			    if (line.equals("/stop")) {
-			    	participant.leave(conference);
-					reader.close(); 
-					System.exit(0);
-			    }
-			    else if (line.equals("/join")) {
-			    	participant.join(conference);
-			    }
-			    else if (line.equals("/list")) {
-			    	listChatRooms();
-			    }
-			    else if (line.equals("/leave")) {
-			    	participant.leave(conference);
-			    }
-			    else {
-			    	participant.send(line);
-			    }
+			    handleLine(line);
+			    
 		   } catch (Exception e) {
 				e.printStackTrace();
 		   }
 	    }
 	}
 	
+	private void handleLine(String line) throws IOException {
+		String[] content = line.split(" ");
+		if (line.equals("/stop")) {
+	    	participant.leave(conference);
+			reader.close(); 
+			System.exit(0);
+	    }
+	    else if (line.equals("/join")) {
+	    	participant.join(conference);
+	    }
+	    else if (line.equals("/list")) {
+	    	listChatRooms();
+	    }
+	    else if (line.equals("/leave")) {
+	    	participant.leave(conference);
+	    }
+	    else {
+	    	participant.send(line);
+	    }
+	}
+
 	private void listChatRooms() {
 		try {
 			String[] noms = Naming.list("rmi://127.0.0.1:1099");
