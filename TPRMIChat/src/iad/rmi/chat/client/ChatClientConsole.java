@@ -48,6 +48,7 @@ public class ChatClientConsole extends Thread {
 			System.exit(0);
 	    }
 	    else if (line.equals("/list")) {
+	    	System.out.println("*** Chat conferences List :");
 	    	listChatRooms();
 	    }
 	    else if (line.equals("/status")) {
@@ -57,18 +58,21 @@ public class ChatClientConsole extends Thread {
 	    else if (line.equals("/leave")) {
 	    	participant.leave(conference);
 	    }	
+	    else if (line.equals("/desc")) {
+	    	System.out.println("*** "+conference.getDescription());
+	    }	
 		else if(content[0].matches("/create")) {
-			if(!factory.newConference(content[1], content[2])) System.out.println("could not create conference : "+content[1]+", wrong password");
+			if(!factory.newConference(content[1], content[2])) System.out.println("*** could not create conference : "+content[1]+", wrong password");
 		}
 		else if(content[0].matches("/join")) {
 	    	ChatConference cf;
 			try {
-				cf = (ChatConference) java.rmi.Naming.lookup("//127.0.0.1:1099/"+content[1]);
+				cf = (ChatConference) java.rmi.Naming.lookup("//172.27.161.160:1099/"+content[1]);
 				conference = cf;
 	    		participant.join(conference);
 		    	conferenceName = content[1];
 			} catch (NotBoundException e) {
-				System.out.println("conference "+content[1]+" doesnt exist");
+				System.out.println("*** conference "+content[1]+" doesnt exist");
 			}
 		}
 		else participant.send(line);
@@ -76,7 +80,7 @@ public class ChatClientConsole extends Thread {
 
 	private void listChatRooms() {
 		try {
-			String[] noms = Naming.list("rmi://127.0.0.1:1099");
+			String[] noms = Naming.list("rmi://172.27.161.160:1099");
 			int l = noms.length;
 			for(int i = 0; i<l ; i++) {
 				System.out.println(noms[i]);

@@ -5,6 +5,7 @@ import iad.rmi.chat.client.ChatParticipant;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -15,8 +16,10 @@ public class ChatConferenceImpl extends UnicastRemoteObject implements ChatConfe
 	protected HashMap<String, ChatParticipant> _vParticipants;
 	private static final long serialVersionUID = 1L;
 
-	protected ChatConferenceImpl() throws RemoteException {
+	protected ChatConferenceImpl(String name) throws RemoteException {
 		super();
+		Date date = new Date();
+		_strDescription = "conference : "+name+", created at"+date.toLocaleString();
 		_vParticipants = new HashMap<String, ChatParticipant>();
 	}	
 	

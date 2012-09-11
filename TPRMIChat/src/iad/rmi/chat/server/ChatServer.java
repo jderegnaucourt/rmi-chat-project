@@ -16,7 +16,7 @@ public class ChatServer {
 		try {
 			System.out.println("Creating ChatConference");
 			ChatConference chatConference;
-			chatConference = new ChatConferenceImpl();
+			chatConference = new ChatConferenceImpl("ChatConference");
 			chatConference.start();
 			Registry reg = LocateRegistry.createRegistry(1099);			
 			ConferenceFactory cp = new ConferenceFactoryImpl(reg);		

@@ -1,9 +1,9 @@
 package iad.rmi.chat.server;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 
 public class ConferenceFactoryImpl extends UnicastRemoteObject implements ConferenceFactory {
 	protected Registry _registry = null;
@@ -21,7 +21,7 @@ public class ConferenceFactoryImpl extends UnicastRemoteObject implements Confer
 			throws RemoteException {
 		System.out.println("creating new conference on server side : "+name);
 		if(password.matches(_password)) {
-			ChatConference chatConference = new ChatConferenceImpl();
+			ChatConference chatConference = new ChatConferenceImpl(name);
 			chatConference.start();			
 			System.out.println("conference "+name+" started.");
 			_registry.rebind(name, chatConference);
