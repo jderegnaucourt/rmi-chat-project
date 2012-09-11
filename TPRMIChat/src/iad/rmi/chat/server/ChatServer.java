@@ -18,11 +18,12 @@ public class ChatServer {
 			ChatConference chatConference;
 			chatConference = new ChatConferenceImpl();
 			chatConference.start();
+			Registry reg = LocateRegistry.createRegistry(1099);			
+			ConferenceFactory cp = new ConferenceFactoryImpl(reg);		
 			
-			
-			Registry reg = LocateRegistry.createRegistry(1099);
 			System.out.println("Server is ready");
 			reg.rebind("ChatConference", chatConference);
+			reg.rebind("ChatConferenceFactory", cp);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
